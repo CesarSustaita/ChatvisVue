@@ -29,7 +29,7 @@
       <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
 
       <div class="cuenta">
-        ¿Aun no tienes cuenta? <RouterLink to="/inicio" > Registrate</RouterLink>
+        ¿Aun no tienes cuenta? <RouterLink to="/registro" > Registrate</RouterLink>
       </div>
 
       </form>
