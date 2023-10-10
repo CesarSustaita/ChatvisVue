@@ -25,9 +25,9 @@
   <div class="inicio">
       <form>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Pais</label>
+        <label for="exampleInputEmail1" class="form-label">Estado</label>
         <select class="form-select" aria-label="Default select example">
-          <option selected>Selecciona el pais</option>
+          <option selected>Selecciona el estado</option>
           <option value="1">Aguascalientes</option>
           <option value="2">Baja California</option>
           <option value="3">Baja California Sur</option>
