@@ -1,10 +1,17 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
+
+export default {
+  components: {
+    RouterLink,
+  },
+};
 </script>
 
 <template>
-      <div class="wrapper">
-    
+  <header>
+    <div class="wrapper">
+      
       <nav>
         <div class="nav">
           <div class="izq">
@@ -24,11 +31,12 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
       </nav>
     </div>
-      <RouterView />
-      
+  </header>
+
+  <RouterView />
 </template>
 
-<style scoped>
+<style>
 .wrapper {
   border: 0px solid rgb(196, 25, 25);
   
@@ -62,5 +70,5 @@ a:hover {
   width: 220px;
 }
 
-
 </style>
+
