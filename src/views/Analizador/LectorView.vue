@@ -1,10 +1,12 @@
 <script setup>
 import FileReader from '/dev/chatvis/chatvis-front-vue/src/components/FileReader.vue'
-
+import NavbarUser from '../../components/NavbarUser.vue';
 </script>
 
 <template>
     <div class="full-screen-container">
+      <NavbarUser />
+
         <div class="container">
             <h2>Comencemos analizar tu archivo</h2>
             <FileReader />
