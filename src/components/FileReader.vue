@@ -38,6 +38,7 @@ const upload = (file) => {
       console.error('Error al subir el archivo:', error);
     });
   };
+  
 </script>
 
 <template>
