@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const fileInput = ref(null);
+const isDragOver = ref(false);
 
 onMounted(() => {
   fileInput.value = document.getElementById('fileInput');
@@ -15,6 +16,8 @@ const handleDrop = (e) => {
   if (file) {
     upload(file);
   }
+
+  e.target.classList.remove('drag-over');
 };
 
 const uploadFile = () => {
@@ -32,12 +35,19 @@ const upload = (file) => {
     .post('http://localhost:3000/lector', formData)
     .then((response) => {
       console.log('Archivo subido con éxito:', response.data);
-      // Puedes agregar aquí la lógica para procesar la respuesta del servidor
     })
     .catch((error) => {
       console.error('Error al subir el archivo:', error);
     });
   };
+
+  const handleDragOver = (e) => {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+  isDragOver.value = true;
+};
+
+
   
 </script>
 
@@ -46,10 +56,11 @@ const upload = (file) => {
     <div
       class="ArrastrarArchivo"
       id="ArrastrarArchivo"
+      @dragover="handleDragOver"
       @drop="handleDrop"
-      @dragover.prevent
       @dragenter.prevent
       @dragleave.prevent
+      :class="{'drag-over': isDragOver}" 
     >
       <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
       <h5>Arrastra tu archivo de Whatsapp .txt</h5>
@@ -89,6 +100,10 @@ const upload = (file) => {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.ArrastrarArchivo.drag-over {
+  background-color: #f0f0f0;
 }
 </style>
 
