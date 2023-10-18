@@ -1,5 +1,5 @@
 <script setup>
-import FileReader from '/dev/chatvis/chatvis-front-vue/src/components/FileReader.vue'
+import FileReader from '../../components/FileReader.vue'
 import NavbarUser from '../../components/NavbarUser.vue';
 </script>
 

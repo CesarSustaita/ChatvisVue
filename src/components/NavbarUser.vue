@@ -88,8 +88,10 @@
     padding: 5px; 
     width: auto; 
     height: auto; 
-    background: none; 
     border: none; 
 }
 
+.btn-dark {
+    color: white;
+}
 </style>
