@@ -1,10 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
+  
   <main>
-    <TheWelcome />
     <div class="contenedor">
       <div class="texts">
         <div class="title">
@@ -18,7 +17,7 @@ import TheWelcome from '../components/TheWelcome.vue'
           tu toma de decisiones, mejora tus estrategias y maximiza tus resultados.
         </div>
         <div class="boton">
-          <RouterLink to="/registro" type="button" class="btn btn-dark">Registrarse</RouterLink>
+          <RouterLink to="/registro" type="button" class="btn btn-outline-secondary">Registrarse</RouterLink>
 
         </div>
       </div>
@@ -32,15 +31,9 @@ import TheWelcome from '../components/TheWelcome.vue'
 @media (min-width: 1500px) {
   .contenedor {
     padding: 45px;
-    padding-left: 100px;
-    padding-right: 100px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  .texts {
-    width: 50%;
+    justify-content: center;
   }
 
   .title {
@@ -63,6 +56,11 @@ import TheWelcome from '../components/TheWelcome.vue'
   .btn {
     font-size: 18px;
     width: 230px;
+    color: white;
+  }
+
+  .btn-dark {
+    color: white;
   }
 
   .img {
@@ -74,18 +72,13 @@ import TheWelcome from '../components/TheWelcome.vue'
   }
 }
 
-@media (min-width: 200px) and (max-width: 1500px) {
+@media (min-width: 100px) and (max-width: 1500px) {
   .contenedor {
     padding: 45px;
-    padding-left: 100px;
-    padding-right: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .texts {
-    width: 50%;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .title {
@@ -108,6 +101,11 @@ import TheWelcome from '../components/TheWelcome.vue'
   .btn {
     font-size: 18px;
     width: 230px;
+    color: white;
+  }
+
+  .btn-dark {
+    color: white;
   }
 
   .img {
@@ -115,7 +113,7 @@ import TheWelcome from '../components/TheWelcome.vue'
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
-    width: 400px;
+    width: 600px;
   }
 }
 

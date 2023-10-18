@@ -114,6 +114,11 @@ export default {
 
   .btn {
     width: 350px;
+    color: white;
+  }
+
+  .btn-dark {
+    color: white;
   }
 
   .next {
