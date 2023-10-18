@@ -1,9 +1,12 @@
 <script setup>
 import FileReader from '../../components/FileReader.vue'
 import NavbarUser from '../../components/NavbarUser.vue';
+
+
 </script>
 
 <template>
+
     <div class="full-screen-container">
       <NavbarUser />
 
