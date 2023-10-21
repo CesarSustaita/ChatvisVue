@@ -66,7 +66,7 @@ export default {
         <RouterLink
           to="/registro2"
           type="button"
-          class="btn btn-dark"
+          class="btn btn-outline-dark"
           :disabled="errors.length > 0"
         >
           Continuar
@@ -114,11 +114,7 @@ export default {
 
   .btn {
     width: 350px;
-    color: white;
-  }
-
-  .btn-dark {
-    color: white;
+ 
   }
 
   .next {

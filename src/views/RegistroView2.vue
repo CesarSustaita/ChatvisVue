@@ -38,7 +38,7 @@
         <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       </div>
 
-      <RouterLink to="/registro3" type="button" class="btn btn-dark">Continuar</RouterLink>
+      <RouterLink to="/registro3" type="button" class="btn btn-outline-dark ">Continuar</RouterLink>
       </form>
   </div>
 </div>
