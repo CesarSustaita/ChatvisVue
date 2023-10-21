@@ -67,7 +67,7 @@
         <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
       </div>
      
-      <RouterLink to="/registro4" type="button" class="btn btn-dark">Continuar</RouterLink>
+      <RouterLink to="/registro4" type="button" class="btn btn-outline-dark">Continuar</RouterLink>
       </form>
   </div>
 </div>

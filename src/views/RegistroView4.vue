@@ -30,7 +30,7 @@
         <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
       </div>
      
-      <RouterLink to="/paginaInicio" type="button" class="btn btn-dark">Registrar</RouterLink>
+      <RouterLink to="/paginaInicio" type="button" class="btn btn-outline-dark">Registrar</RouterLink>
       </form>
   </div>
 </div>
