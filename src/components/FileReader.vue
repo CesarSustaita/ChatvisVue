@@ -1,7 +1,5 @@
 <script setup>
-
-import { ref, onMounted, reactive, toRefs} from 'vue';
-import axios from 'axios';
+import { ref, onMounted, reactive, toRefs } from 'vue';
 
 const fileInput = ref(null);
 const isDragOver = ref(false);
@@ -11,10 +9,11 @@ const estadoCarga = reactive({
   cargaFallida: false,
   mensajeArrastrar: 'Arrastra tu archivo de WhatsApp .txt',
   mensajeExitoso: '¡Archivo subido con éxito!',
-  mensajeFallido: 'Error al subir el archivo.',
+  mensajeFallido: 'Error: El archivo no es un .txt',
+  mensajes: null,
 });
 
-const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido } = toRefs(estadoCarga);
+const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido, mensajes } = toRefs(estadoCarga);
 
 onMounted(() => {
   fileInput.value = document.getElementById('fileInput');
@@ -25,51 +24,67 @@ const handleDrop = (e) => {
   const file = e.dataTransfer.files[0];
   if (file) {
     if (file.name.endsWith('.txt')) {
-      upload(file);
+      console.log('Archivo recibido:', file.name);
+      procesarArchivo(file);
     } else {
       // Mostrar mensaje de error si no es un archivo .txt
+      console.log('Error: Archivo no es .txt');
       estadoCarga.cargaExitosa = false;
       estadoCarga.cargaFallida = true;
     }
   }
-
   e.target.classList.remove('drag-over');
 };
 
 const uploadFile = () => {
   if (fileInput.value && fileInput.value.files.length > 0) {
     const file = fileInput.value.files[0];
-
     if (file.name.endsWith('.txt')) {
-      upload(file);
+      console.log('Archivo recibido:', file.name);
+      procesarArchivo(file);
     } else {
       // Mostrar mensaje de error si no es un archivo .txt
+      console.log('Error: El archivo no es .txt');
       estadoCarga.cargaExitosa = false;
       estadoCarga.cargaFallida = true;
     }
   }
 };
 
+const procesarArchivo = (file) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const fileContent = e.target.result;
+    console.log('Archivo leído exitosamente');
+    const mensajes = parsearArchivo(fileContent);
+    estadoCarga.mensajes = mensajes;
+    estadoCarga.cargaExitosa = true;
+    estadoCarga.cargaFallida = false;
+  };
+  reader.readAsText(file);
+};
 
-const upload = (file) => {
-  const formData = new FormData();
-  formData.append('archivo', file);
+const parsearArchivo = (fileContent) => {
+  const lines = fileContent.split('\n');
+  const mensajes = [];
+  let mensajeActual = {};
 
-  axios
-    .post('http://localhost:3000/lector', formData)
-    .then((response) => {
-      console.log('Archivo subido con éxito:', response.data);
-      estadoCarga.cargaExitosa = true;
-      estadoCarga.cargaFallida = false;
+  for (const line of lines) {
+    const match = /\[(.*?)\] (.+): (.+)/.exec(line);
 
-      // Restablecer mensajeArrastrar a su valor predeterminado después de una carga exitosa.
-      estadoCarga.mensajeArrastrar = 'Arrastra tu archivo de WhatsApp .txt';
-    })
-    .catch((error) => {
-      console.error('Error al subir el archivo:', error);
-      estadoCarga.cargaExitosa = false;
-      estadoCarga.cargaFallida = true;
-    });
+    if (match) {
+      mensajeActual = {
+        fecha: match[1],
+        remitente: match[2],
+        mensaje: match[3],
+      };
+      mensajes.push(mensajeActual);
+    } else {
+      mensajeActual.mensaje += '\n' + line;
+    }
+  }
+  console.log('Archivo parseado a JSON:', mensajes);
+  return mensajes;
 };
 
 const handleDragOver = (e) => {
@@ -77,7 +92,6 @@ const handleDragOver = (e) => {
   e.dataTransfer.dropEffect = 'copy';
   isDragOver.value = true;
 };
-  
 </script>
 
 <template>
@@ -90,7 +104,7 @@ const handleDragOver = (e) => {
       @dragenter.prevent
       @dragleave.prevent
       accept=".txt"
-      :class="{'drag-over': isDragOver}" 
+      :class="{'drag-over': isDragOver}"
     >
       <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
       <h5>
@@ -119,34 +133,31 @@ const handleDragOver = (e) => {
   </div>
 </template>
 
-
-
 <style>
-.ReaderFile{
-    background-color: white;
-    width: 50%;
-    height: 40%;
-    border-radius: 10px;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-evenly;
+.ReaderFile {
+  background-color: white;
+  width: 50%;
+  height: 40%;
+  border-radius: 10px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .ArrastrarArchivo {
-    width: 80%;
-    height: 55%;
-    border-radius: 10px;
-    border: 1px solid #DCDCDC;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+  width: 80%;
+  height: 55%;
+  border-radius: 10px;
+  border: 1px solid #DCDCDC;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .ArrastrarArchivo.drag-over {
   background-color: #f0f0f0;
 }
 </style>
-
