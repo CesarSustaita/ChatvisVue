@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted, reactive, toRefs } from 'vue';
+import { provide, ref, onMounted, reactive, toRefs } from 'vue';
 
 const fileInput = ref(null);
 const isDragOver = ref(false);
+const mensajes = ref(null);
 
 const estadoCarga = reactive({
   cargaExitosa: false,
@@ -13,7 +14,7 @@ const estadoCarga = reactive({
   mensajes: null,
 });
 
-const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido, mensajes } = toRefs(estadoCarga);
+const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido } = toRefs(estadoCarga);
 
 onMounted(() => {
   fileInput.value = document.getElementById('fileInput');
@@ -28,12 +29,12 @@ const handleDrop = (e) => {
       procesarArchivo(file);
     } else {
       // Mostrar mensaje de error si no es un archivo .txt
-      console.log('Error: Archivo no es .txt');
+      console.log('Error: El archivo no es .txt');
       estadoCarga.cargaExitosa = false;
       estadoCarga.cargaFallida = true;
     }
+    e.target.classList.remove('drag-over');
   }
-  e.target.classList.remove('drag-over');
 };
 
 const uploadFile = () => {
@@ -57,9 +58,13 @@ const procesarArchivo = (file) => {
     const fileContent = e.target.result;
     console.log('Archivo leído exitosamente');
     const mensajes = parsearArchivo(fileContent);
+    console.log('Archivo parseado a JSON:', mensajes);
     estadoCarga.mensajes = mensajes;
     estadoCarga.cargaExitosa = true;
     estadoCarga.cargaFallida = false;
+
+    // Inyectar mensajes para que estén disponibles en ChordDiagram.vue
+    mensajes.value = mensajes;
   };
   reader.readAsText(file);
 };
@@ -83,7 +88,7 @@ const parsearArchivo = (fileContent) => {
       mensajeActual.mensaje += '\n' + line;
     }
   }
-  console.log('Archivo parseado a JSON:', mensajes);
+
   return mensajes;
 };
 
@@ -92,6 +97,9 @@ const handleDragOver = (e) => {
   e.dataTransfer.dropEffect = 'copy';
   isDragOver.value = true;
 };
+
+provide('estadoCarga', estadoCarga);
+provide('mensajes', mensajes);
 </script>
 
 <template>
