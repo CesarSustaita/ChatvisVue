@@ -1,3 +1,42 @@
+<template>
+  <div class="ReaderFile">
+    <div
+      class="ArrastrarArchivo"
+      id="ArrastrarArchivo"
+      @dragover="handleDragOver"
+      @drop="handleDrop"
+      @dragenter.prevent
+      @dragleave.prevent
+      accept=".txt"
+      :class="{'drag-over': isDragOver}"
+    >
+      <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
+      <h5>
+        <template v-if="!cargaExitosa && !cargaFallida">
+          {{ mensajeArrastrar }}
+        </template>
+        <template v-else-if="cargaExitosa">
+          <i class="fa-regular fa-circle-check fa-xl" style="color: #47e006;"></i> {{ mensajeExitoso }}
+        </template>
+        <template v-else-if="cargaFallida">
+          <i class="fa-solid fa-circle-exclamation fa-xl" style="color: #ce1c09;"></i> {{ mensajeFallido }}
+        </template>
+      </h5>
+    </div>
+    <label for="fileInput" class="btn btn-dark">
+      <i class="fa-solid fa-upload" style="color: #ffffff;"></i> Examinar
+      <input
+        type="file"
+        id="fileInput"
+        ref="fileInput"
+        style="display: none"
+        @change="uploadFile"
+        accept=".txt"
+      />
+    </label>
+  </div>
+</template>
+
 <script setup>
 import { provide, ref, onMounted, reactive, toRefs } from 'vue';
 
@@ -12,9 +51,10 @@ const estadoCarga = reactive({
   mensajeExitoso: '¡Archivo subido con éxito!',
   mensajeFallido: 'Error: El archivo no es un .txt',
   mensajes: null,
+  relaciones: [], // Declarar la propiedad relaciones como un array vacío
 });
 
-const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido } = toRefs(estadoCarga);
+const { cargaExitosa, cargaFallida, mensajeArrastrar, mensajeExitoso, mensajeFallido, relaciones } = toRefs(estadoCarga);
 
 onMounted(() => {
   fileInput.value = document.getElementById('fileInput');
@@ -54,18 +94,23 @@ const uploadFile = () => {
 
 const procesarArchivo = (file) => {
   const reader = new FileReader();
-  reader.onload = (e) => {
-    const fileContent = e.target.result;
-    console.log('Archivo leído exitosamente');
-    const mensajes = parsearArchivo(fileContent);
-    console.log('Archivo parseado a JSON:', mensajes);
-    estadoCarga.mensajes = mensajes;
-    estadoCarga.cargaExitosa = true;
-    estadoCarga.cargaFallida = false;
 
-    // Inyectar mensajes para que estén disponibles en ChordDiagram.vue
-    mensajes.value = mensajes;
-  };
+  reader.onload = (e) => {
+  const fileContent = e.target.result;
+  console.log('Archivo leído exitosamente');
+  const nuevosMensajes = parsearArchivo(fileContent);
+  console.log('Archivo parseado a JSON:', nuevosMensajes);
+  estadoCarga.cargaExitosa = true;
+  estadoCarga.cargaFallida = false;
+
+  // Analizar las relaciones entre los contactos
+  const nuevasRelaciones = analizarRelaciones(nuevosMensajes);
+
+  // Asignar los nuevos valores a las variables reactivas
+  mensajes.value = nuevosMensajes;
+  relaciones.value = nuevasRelaciones;
+};
+
   reader.readAsText(file);
 };
 
@@ -92,54 +137,44 @@ const parsearArchivo = (fileContent) => {
   return mensajes;
 };
 
+const analizarRelaciones = (mensajes) => {
+  // Inicializar la matriz de relaciones
+  const relaciones = [];
+
+  let contactoAnterior = null;
+
+  for (const mensaje of mensajes) {
+    const remitente = mensaje.remitente;
+
+    if (!contactoAnterior) {
+      contactoAnterior = remitente;
+    } else {
+      // Buscar la relación actual o crear una nueva
+      const relacion = relaciones.find((rel) => rel.from === contactoAnterior && rel.to === remitente);
+
+      if (relacion) {
+        relacion.value++;
+      } else {
+        relaciones.push({ from: contactoAnterior, to: remitente, value: 1 });
+      }
+
+      contactoAnterior = remitente;
+    }
+  }
+  console.log('Relaciones entre contactos: completa ');
+  estadoCarga.relaciones = relaciones;
+};
+
 const handleDragOver = (e) => {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'copy';
   isDragOver.value = true;
 };
 
-provide('estadoCarga', estadoCarga);
+// Provide mensajes y relaciones para estar disponibles en ChordDiagram.vue
 provide('mensajes', mensajes);
+provide('relaciones', relaciones);
 </script>
-
-<template>
-  <div class="ReaderFile">
-    <div
-      class="ArrastrarArchivo"
-      id="ArrastrarArchivo"
-      @dragover="handleDragOver"
-      @drop="handleDrop"
-      @dragenter.prevent
-      @dragleave.prevent
-      accept=".txt"
-      :class="{'drag-over': isDragOver}"
-    >
-      <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
-      <h5>
-        <template v-if="!cargaExitosa && !cargaFallida">
-          {{ mensajeArrastrar }}
-        </template>
-        <template v-else-if="cargaExitosa">
-          <i class="fa-regular fa-circle-check fa-xl" style="color: #47e006;"></i> {{ mensajeExitoso }}
-        </template>
-        <template v-else-if="cargaFallida">
-          <i class="fa-solid fa-circle-exclamation fa-xl" style="color: #ce1c09;"></i> {{ mensajeFallido }}
-        </template>
-      </h5>
-    </div>
-    <label for="fileInput" class="btn btn-dark">
-      <i class="fa-solid fa-upload" style="color: #ffffff;"></i> Examinar
-      <input
-        type="file"
-        id="fileInput"
-        ref="fileInput"
-        style="display: none"
-        @change="uploadFile"
-        accept=".txt"
-      />
-    </label>
-  </div>
-</template>
 
 <style>
 .ReaderFile {
