@@ -1,5 +1,6 @@
 <script setup>
 import ChordDiagram from '../../components/analizador/ChordDiagram.vue';
+import SemanticAnalizador from '../../components/analizador/SemanticAnalizador.vue';
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import ChordDiagram from '../../components/analizador/ChordDiagram.vue';
         </div>
         <div class="analizador">
             <div class="grafica">
-                Aqui va la grafica
+                <SemanticAnalizador />
             </div>
         </div>
 </template>
