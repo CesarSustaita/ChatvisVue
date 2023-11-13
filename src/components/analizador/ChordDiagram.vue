@@ -34,7 +34,7 @@ const dibujarChordDiagram = (relaciones) => {
 
   const svg = d3.select(document.getElementById('chordDiagram'));
   const outerRadius = Math.min(width, height) * 0.4 - 25;
-  const innerRadius = outerRadius - 70;
+  const innerRadius = outerRadius - 30;
 
   const arc = d3.arc()
     .innerRadius(innerRadius)
@@ -115,6 +115,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 0px solid black;
 }
 </style>
