@@ -1,6 +1,8 @@
 <script setup>
 import ChordDiagram from '../../components/analizador/ChordDiagram.vue';
 import SemanticAnalizador from '../../components/analizador/SemanticAnalizador.vue';
+import ChatComponent from '../../components/analizador/ChatComponent.vue';
+
 </script>
 
 <template>
@@ -9,7 +11,7 @@ import SemanticAnalizador from '../../components/analizador/SemanticAnalizador.v
             <ChordDiagram/>
             </div>
             <div class="chat">
-                Chat
+                <ChatComponent/>
             </div>
         </div>
         <div class="analizador">
