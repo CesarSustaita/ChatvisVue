@@ -1,20 +1,19 @@
 <template>
   <div class="ChordDiagram">
-    <svg :width="width" :height="height" id="chordDiagram"></svg>
-    <h6>aqui va la grafica </h6>
+    <div class="graph">
+      <svg :width="width" :height="height" id="chordDiagram"></svg>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import * as d3 from 'd3';
 import { store } from '../store';
 
 
-const width = 500;
-const height = 500;
-
-const relaciones = ref([]);
+const width = 900;
+const height = 600;
 
 // Recibir los datos emitidos por FileReader y dibujar el diagrama
 const recibirDatos = (relaciones) => {
@@ -34,8 +33,8 @@ const dibujarChordDiagram = (relaciones) => {
   console.log('Dibujando el diagrama de acordes con relaciones:', relaciones);
 
   const svg = d3.select(document.getElementById('chordDiagram'));
-  const outerRadius = Math.min(width, height) * 0.5 - 40;
-  const innerRadius = outerRadius - 30;
+  const outerRadius = Math.min(width, height) * 0.4 - 25;
+  const innerRadius = outerRadius - 70;
 
   const arc = d3.arc()
     .innerRadius(innerRadius)
@@ -89,7 +88,7 @@ const dibujarChordDiagram = (relaciones) => {
     .attr('dy', '.35em')
     .attr('transform', d => `rotate(${(d.angle * 180 / Math.PI - 90)}) translate(${outerRadius + 5})${d.angle > Math.PI ? 'rotate(180)' : ''}`)
     .style('text-anchor', d => d.angle > Math.PI ? 'end' : null)
-    .text(d => relaciones[d.index].from);
+    .text(d => relaciones[d.index].from.substring(0, 10));
 
   svg.append('text')
     .attr('x', width / 2)
@@ -99,13 +98,23 @@ const dibujarChordDiagram = (relaciones) => {
 };
 
 onMounted(() => {
-  // Aquí puedes llamar a la función recibirDatos y pasarle las relaciones si es necesario
   recibirDatos([]);
 });
 </script>
 
 <style>
 .ChordDiagram {
-  /* Estilos para el contenedor del diagrama, si es necesario */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 650px;
+  overflow-x: auto;
+}
+
+.graph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
 }
 </style>
