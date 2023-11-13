@@ -101,6 +101,8 @@ const procesarArchivo = async (file) => {
     const nuevosMensajes = parsearArchivo(fileContent);
     console.log('Archivo parseado a JSON:', nuevosMensajes);
 
+    store.conversaciones = nuevosMensajes;
+    
     if (nuevosMensajes.length > 0) {
       estadoCarga.cargaExitosa = true;
       estadoCarga.cargaFallida = false;
