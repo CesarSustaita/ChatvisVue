@@ -1,7 +1,6 @@
 <script setup>
 import ChordDiagram from '../../components/analizador/ChordDiagram.vue';
 import SemanticAnalizador from '../../components/analizador/SemanticAnalizador.vue';
-import ChatComponent from '../../components/analizador/ChatComponent.vue';
 
 </script>
 
