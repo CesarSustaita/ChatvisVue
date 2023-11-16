@@ -187,7 +187,20 @@ const analizarRelaciones = async (mensajes) => {
     await new Promise(resolve => setTimeout(resolve, 0)); // Esperar para evitar problemas de asincronía
   }
 
-  const relacionesFiltradas = relaciones.filter(relacion => relacion.value >= 6);
+  let umbralFiltrado = 4;
+
+  // Ajustar el umbral de filtrado según el tamaño del arreglo de relaciones
+  if (relaciones.length > 0 && relaciones.length <= 50) {
+    umbralFiltrado = 4;
+  } else if (relaciones.length > 50 && relaciones.length <= 100) {
+    umbralFiltrado = 9;
+  } else if (relaciones.length > 100 && relaciones.length <= 150) {
+    umbralFiltrado = 14;
+  } else if (relaciones.length > 150) {
+    umbralFiltrado = 35;
+  }
+
+  const relacionesFiltradas = relaciones.filter(relacion => relacion.value >= umbralFiltrado);
 
   console.log('Relaciones generadas:', relacionesFiltradas);
 
