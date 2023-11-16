@@ -84,6 +84,17 @@ const uploadFile = () => {
     if (file.name.endsWith('.txt')) {
       console.log('Archivo recibido:', file.name);
       procesarArchivo(file);
+      // Cambiar el mensaje después de 3 segundos
+      setTimeout(() => {
+        estadoCarga.mensajeExitoso = 'Tu archivo se está cargando...';
+      }, 2000);
+      // Cambiar el mensaje después de 10 segundos si aún no ha cambiado
+      setTimeout(() => {
+        if (estadoCarga.mensajeExitoso === 'Seguimos cargando...') {
+          estadoCarga.mensajeExitoso = 'Tu archivo está tomando más tiempo de lo esperado.';
+        }
+      }, 10000);
+      // Puedes agregar más intervalos de tiempo según sea necesario
     } else {
       console.log('Error: El archivo no es .txt');
       estadoCarga.cargaExitosa = false;
@@ -176,7 +187,7 @@ const analizarRelaciones = async (mensajes) => {
     await new Promise(resolve => setTimeout(resolve, 0)); // Esperar para evitar problemas de asincronía
   }
 
-  const relacionesFiltradas = relaciones.filter(relacion => relacion.value >= 5);
+  const relacionesFiltradas = relaciones.filter(relacion => relacion.value >= 6);
 
   console.log('Relaciones generadas:', relacionesFiltradas);
 
