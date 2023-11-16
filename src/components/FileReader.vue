@@ -145,6 +145,7 @@ const parsearArchivo = (fileContent) => {
     }
   }
 
+  //crear filtro de mensajes
   return mensajes;
 };
 
@@ -175,8 +176,12 @@ const analizarRelaciones = async (mensajes) => {
     await new Promise(resolve => setTimeout(resolve, 0)); // Esperar para evitar problemas de asincronía
   }
 
-  if (relaciones.length > 0) {
-    return relaciones;
+  const relacionesFiltradas = relaciones.filter(relacion => relacion.value >= 5);
+
+  console.log('Relaciones generadas:', relacionesFiltradas);
+
+  if (relacionesFiltradas.length > 0) {
+    return relacionesFiltradas;
   } else {
     console.error('No se encontraron relaciones válidas en los mensajes.');
     return [];
