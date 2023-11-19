@@ -1,31 +1,57 @@
 <script setup>
 import NavbarUser from '../components/NavbarUser.vue';
+import { store } from '../components/store'
+
+const cambiarOpcion = (opcion) => {
+  store.opcionSeleccionada = opcion;
+  console.log('Opción seleccionada:', store.opcionSeleccionada);
+};
 </script>
 
 <template>
-    <NavbarUser />
-    <div class="botones-pestañas">
+    <div>
+      <NavbarUser />
+      <div class="botones-pestañas">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-outline-secondary" for="btnradio1"><i class="fa-solid fa-user-group" ></i> Usuarios</label>
-
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-outline-secondary" for="btnradio2"><i class="fa-solid fa-chart-simple"></i> Analizador</label>
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio1"
+            autocomplete="off"
+            :checked="store.opcionSeleccionada === 'Usuarios'"
+            @click="cambiarOpcion('Usuarios')"
+          />
+          <label class="btn btn-outline-secondary" for="btnradio1">
+            <i class="fa-solid fa-user-group"></i> Usuarios
+          </label>
+  
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="btnradio2"
+            autocomplete="off"
+            :checked="store.opcionSeleccionada === 'Analizador'"
+            @click="cambiarOpcion('Analizador')"
+          />
+          <label class="btn btn-outline-secondary" for="btnradio2">
+            <i class="fa-solid fa-chart-simple"></i> Analizador
+          </label>
         </div>
+      </div>
     </div>
-</template>
-
-<style scoped>
-
-.botones-pestañas {
+  </template>
+  
+  <style scoped>
+  .botones-pestañas {
     display: flex;
     justify-content: center;
     padding: 10px;
-}
-
-.btn-outline-secondary {
+  }
+  
+  .btn-outline-secondary {
     color: black;
-    font-weight:500;
-}
-
-</style>
+    font-weight: 500;
+  }
+  </style>
