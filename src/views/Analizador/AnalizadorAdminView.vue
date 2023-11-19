@@ -2,14 +2,15 @@
 import NavbarAdmin from '../../components/NavbarAdmin.vue';
 import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue';
 import UserTableComponent from '../../components/analizador/UserTableComponent.vue';
+import { store } from '../../components/store';
 </script>
 
 <template>
-    <NavbarAdmin/>
-    <div class="full-screen-container">
-       <ChatvisComponents/>
-       <UserTableComponent/>
-    </div>
+    <NavbarAdmin />
+  <div class="full-screen-container">
+    <ChatvisComponents v-if="store.opcionSeleccionada === 'Analizador'"/>
+    <UserTableComponent v-if="store.opcionSeleccionada === 'Usuarios'"/>
+  </div>
     
 </template>
 
