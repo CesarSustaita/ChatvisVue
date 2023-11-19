@@ -1,6 +1,5 @@
 <script setup>
 import NavbarUser from '../components/NavbarUser.vue';
-
 </script>
 
 <template>
