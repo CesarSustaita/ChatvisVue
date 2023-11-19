@@ -1,13 +1,14 @@
 <script setup>
 import NavbarAdmin from '../../components/NavbarAdmin.vue';
-import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue'
-
+import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue';
+import UserTableComponent from '../../components/analizador/UserTableComponent.vue';
 </script>
 
 <template>
     <NavbarAdmin/>
     <div class="full-screen-container">
        <ChatvisComponents/>
+       <UserTableComponent/>
     </div>
     
 </template>
@@ -20,8 +21,8 @@ import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue
   gap: 20px;
   padding: 30px;
   width: 100%;
-  height: 100vh; /* 100% de la altura de la ventana gráfica */
-  background-color: #F5F6FA; /* Color de fondo, ajusta según tus necesidades */
+  height: 100vh; 
+  background-color: #F5F6FA; 
   }
 
 </style>
