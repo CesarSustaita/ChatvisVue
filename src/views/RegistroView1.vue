@@ -1,42 +1,52 @@
-
 <script>
+import { store } from '../components/register'
+import { ref } from 'vue'
+const user = ref(store)
+console.log(store)
 export default {
   data() {
     return {
-      email: '', // Para almacenar el valor del correo electrónico
+      user, // Para almacenar el valor del correo electrónico
+      // email: '',
       errors: [] // Para rastrear los errores de validación
-    };
+    }
   },
   methods: {
     validateEmail() {
+      // user.value.email = this.email
       // Expresión regular para validar el correo electrónico
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 
       // Reiniciar la lista de errores
-      this.errors = [];
+      this.errors = []
 
       // Validar si el campo de correo electrónico está vacío o no coincide con la expresión regular
-      if (!this.email) {
-        this.errors.push('El correo electrónico es obligatorio.');
-      } else if (!emailRegex.test(this.email)) {
-        this.errors.push('El correo electrónico ingresado no es válido.');
+      if (!user.value.email) {
+        this.errors.push('El correo electrónico es obligatorio.')
+      } else if (!emailRegex.test(user.value.email)) {
+        this.errors.push('El correo electrónico ingresado no es válido.')
       }
     }
   }
-};
+}
 </script>
 
 <template>
   <div class="container">
     <div class="encabezados">
       <div class="back">
-        <h3><RouterLink to="/"> <i class="fa-solid fa-chevron-left" style="color: #000000;"></i></RouterLink>  Regresar</h3>
+        <h3>
+          <RouterLink to="/">
+            <i class="fa-solid fa-chevron-left" style="color: #000000"></i
+          ></RouterLink>
+          Regresar
+        </h3>
       </div>
       <div class="title">
         <h3>Registro de cuenta</h3>
       </div>
       <div class="next">
-        <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
+        <h3><i class="fa-solid fa-chevron-right" style="color: #ffffff"></i></h3>
       </div>
     </div>
 
@@ -55,9 +65,9 @@ export default {
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            v-model="email" 
+            v-model="user.email"
             @input="validateEmail"
-          >
+          />
           <!-- Mostrar errores debajo del campo de entrada -->
           <div v-for="(error, index) in errors" :key="index" class="text-danger">{{ error }}</div>
         </div>
@@ -73,17 +83,15 @@ export default {
         </RouterLink>
 
         <div class="cuenta">
-          ¿Ya tienes una cuenta? <RouterLink to="/inicio" > Inicia Sesión</RouterLink>
+          ¿Ya tienes una cuenta? <RouterLink to="/inicio"> Inicia Sesión</RouterLink>
         </div>
       </form>
     </div>
   </div>
 </template>
 
-
 <style>
 @media (min-width: 1024px) {
-
   .container {
     display: flex;
     align-items: center;
@@ -98,7 +106,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    border: 0px solid black; 
+    border: 0px solid black;
   }
 
   .title {
@@ -114,7 +122,6 @@ export default {
 
   .btn {
     width: 350px;
- 
   }
 
   .next {
@@ -133,24 +140,22 @@ export default {
 
   .recuadro1 {
     background-color: rgb(54, 54, 54);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
   }
   .recuadro2 {
     background-color: rgb(194, 194, 194);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
-
   }
   .recuadro3 {
     background-color: rgb(194, 194, 194);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
-
   }
   .recuadro4 {
-    background-color: rgb(194, 194, 194); 
-    width: 80px; 
+    background-color: rgb(194, 194, 194);
+    width: 80px;
     border-radius: 4px;
   }
 

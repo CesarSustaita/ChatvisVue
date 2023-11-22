@@ -1,45 +1,57 @@
-
-
+<script setup>
+import { store } from '../components/register'
+import { ref } from 'vue'
+const user = ref(store)
+console.log(store)
+</script>
 
 <template>
-<div class="container">
-  <div class="encabezados">
-    <div class="back">
-      <h3><RouterLink to="/registro3" > <i class="fa-solid fa-chevron-left" style="color: #000000;"></i></RouterLink>  Regresar</h3>
-    </div>
-    <div class="title">
-    <h3>Registro de cuenta  </h3>
-  </div>
-  <div class="next">
-      <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
-    </div>
-  </div>
-  
-  <div class="avance">
-    <div class="recuadro1"></div>
-    <div class="recuadro2"></div>
-    <div class="recuadro3"></div>
-    <div class="recuadro4"></div>
-  </div>
-
-  <div class="inicio">
-      <form>
-   
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Universidad</label>
-        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+  <div class="container">
+    <div class="encabezados">
+      <div class="back">
+        <h3>
+          <RouterLink to="/registro3">
+            <i class="fa-solid fa-chevron-left" style="color: #000000"></i
+          ></RouterLink>
+          Regresar
+        </h3>
       </div>
-     
-      <RouterLink to="/paginaInicio" type="button" class="btn btn-outline-dark">Registrar</RouterLink>
-      </form>
-  </div>
-</div>
-</template>
+      <div class="title">
+        <h3>Registro de cuenta</h3>
+      </div>
+      <div class="next">
+        <h3><i class="fa-solid fa-chevron-right" style="color: #ffffff"></i></h3>
+      </div>
+    </div>
 
+    <div class="avance">
+      <div class="recuadro1"></div>
+      <div class="recuadro2"></div>
+      <div class="recuadro3"></div>
+      <div class="recuadro4"></div>
+    </div>
+
+    <div class="inicio">
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Universidad</label>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            v-model="user.universidad"
+          />
+        </div>
+
+        <RouterLink to="/" type="button" class="btn btn-outline-dark">Registrar</RouterLink>
+      </form>
+    </div>
+  </div>
+</template>
 
 <style>
 @media (min-width: 1024px) {
-
   .container {
     display: flex;
     align-items: center;
@@ -54,7 +66,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    border: 0px solid black; 
+    border: 0px solid black;
   }
 
   .title {
@@ -88,24 +100,22 @@
 
   .recuadro1 {
     background-color: rgb(54, 54, 54);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
   }
   .recuadro2 {
     background-color: rgb(54, 54, 54);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
-
   }
   .recuadro3 {
     background-color: rgb(54, 54, 54);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
-
   }
   .recuadro4 {
     background-color: rgb(54, 54, 54);
-    width: 80px; 
+    width: 80px;
     border-radius: 4px;
   }
 }
