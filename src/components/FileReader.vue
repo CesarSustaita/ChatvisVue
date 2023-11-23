@@ -11,13 +11,22 @@
       accept=".txt"
       :class="{'drag-over': isDragOver}"
     >
-      <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
+      <template v-if="cargaExitosa">
+        <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+        </div>
+      </template>
+      <template v-else>
+        <img src="/src/assets/img/attach_file.svg" alt="Clip" width="65" height="65" />
+      </template>
+
       <h5>
         <template v-if="!cargaExitosa && !cargaFallida">
           {{ mensajeArrastrar }}
         </template>
         <template v-else-if="cargaExitosa">
           <i class="fa-regular fa-circle-check fa-xl" style="color: #47e006;"></i> {{ mensajeExitoso }}
+          
         </template>
         <template v-else-if="cargaFallida">
           <i class="fa-solid fa-circle-exclamation fa-xl" style="color: #ce1c09;"></i> {{ mensajeFallido }}
