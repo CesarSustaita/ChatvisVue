@@ -133,7 +133,7 @@ const procesarArchivo = async (file) => {
       store.relaciones = nuevasRelaciones;
       // Cambiar a la página /analizador después de un breve retraso
       setTimeout(() => {
-        router.push({ name: 'analizador', params: { relaciones: nuevasRelaciones } });
+        router.push({ name: 'analizadorA', params: { relaciones: nuevasRelaciones } }); //AQUI DEBE DE VALIDAR CUANDO ES UNO Y CUANDO ES EL OTRO ADMIN O USUARIO
       }, 0);
     } else {
       console.error('No se encontraron mensajes válidos en el archivo.');
