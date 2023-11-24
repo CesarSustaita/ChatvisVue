@@ -3,6 +3,21 @@ import { store } from '../components/register'
 import { ref } from 'vue'
 const user = ref(store)
 console.log(store)
+import axios from 'axios'
+const registrarUsers = () => {
+  axios
+    .post('http://localhost:8000/api/user/login', store)
+    .then((res) => {
+      console.log(res)
+      // Maneja la respuesta del backend, por ejemplo, guarda el token
+      // const token = res.data.token
+      // Puedes hacer algo con el token, como almacenarlo en localStorage
+      // localStorage.setItem('token', token)
+    })
+    .catch((error) => {
+      console.error('Error en el inicio de sesión:', error)
+    })
+}
 </script>
 
 <template>
@@ -32,7 +47,7 @@ console.log(store)
     </div>
 
     <div class="inicio">
-      <form>
+      <form @submit.prevent="registrarUsers">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Universidad</label>
           <input
@@ -43,8 +58,7 @@ console.log(store)
             v-model="user.universidad"
           />
         </div>
-
-        <RouterLink to="/" type="button" class="btn btn-outline-dark">Registrar</RouterLink>
+        <button type="button" class="btn btn-outline-dark">Registrar</button>
       </form>
     </div>
   </div>

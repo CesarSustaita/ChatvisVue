@@ -1,4 +1,32 @@
-<script setup></script>
+<script>
+// setup
+import axios from 'axios'
+export default {
+  // name: 'user',
+  data() {
+    return {
+      users: []
+    }
+  },
+  mounted() {
+    this.getUsers()
+  },
+  methods: {
+    getUsers() {
+      axios
+        .get('http://localhost:8000/api/user')
+        .then((res) => {
+          console.log(res)
+          this.users = res.data
+          console.log(this.users)
+        })
+        .catch((error) => {
+          console.error('Error al obtener usuarios:', error)
+        })
+    }
+  }
+}
+</script>
 
 <template>
   <div class="cont-superior">
@@ -45,6 +73,16 @@
             <td>México</td>
             <td>Séptimo</td>
             <td>Agosto 01, 2022 - 9:38 am</td>
+            <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
+          </tr>
+          <tr v-for="user in users" :key="user.id">
+            <th scope="row">{{ user._id }}</th>
+            <td>{{ user.nombre }} {{ user.apellido_paterno }} {{ user.apellido_materno }}</td>
+            <td>{{ user.universidad }}</td>
+            <td>{{ user.estado }}</td>
+            <td>{{ user.ciudad }}/td></td>
+            <td>{{ user.num_uso }}</td>
+            <td>semestre?</td>
             <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
           </tr>
         </tbody>
