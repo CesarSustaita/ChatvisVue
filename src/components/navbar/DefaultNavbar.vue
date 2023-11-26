@@ -1,10 +1,9 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 export default {
   components: {
     RouterLink,
-    RouterView
   },
 };
 </script>
@@ -12,7 +11,6 @@ export default {
 <template>
   <header>
     <div class="wrapper">
-      
       <nav>
         <div class="nav">
           <div class="izq">
@@ -34,10 +32,9 @@ export default {
     </div>
   </header>
 
-  <RouterView />
 </template>
 
-<style>
+<style scoped>
 .wrapper {
   border: 0px solid rgb(196, 25, 25);
   

@@ -1,12 +1,12 @@
 <script setup>
-import NavbarAdmin from '../../components/NavbarAdmin.vue';
+import {AdminNavbar} from '@/components/navbar';
 import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue';
 import UserTableComponent from '../../components/analizador/UserTableComponent.vue';
 import { store } from '../../components/store';
 </script>
 
 <template>
-    <NavbarAdmin />
+  <AdminNavbar />
   <div class="full-screen-container">
     <ChatvisComponents v-if="store.opcionSeleccionada === 'Analizador'"/>
     <UserTableComponent v-if="store.opcionSeleccionada === 'Usuarios'"/>

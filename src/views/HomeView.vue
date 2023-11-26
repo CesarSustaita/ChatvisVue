@@ -1,33 +1,53 @@
 <script setup>
+import {DefaultLayout} from '@/layouts'
 </script>
 
 <template>
-  
-  <main>
-    <div class="contenedor">
-      <div class="texts">
-        <div class="title">
-          Analizador de datos
-        </div>
-        <div class="subtitle">
-          ¡Descubre ChatVis, la solución revolucionaria para implementar análisis 
-          semántico en tus conversaciones en archivos .txt! Con nuestra avanzada 
-          tecnología, obtener información valiosa. Aumenta la precisión y eficiencia 
-          de tus análisis con nuestra plataforma intuitiva y fácil de usar. Potencia 
-          tu toma de decisiones, mejora tus estrategias y maximiza tus resultados.
-        </div>
-        <div class="boton">
-          <RouterLink to="/registro" type="button" class="btn btn-outline-secondary">Registrarse</RouterLink>
+  <DefaultLayout>
+    <main>
+      <div class="contenedor">
+        <div class="texts">
+          <div class="title">
+            Analizador de datos
+          </div>
+          <div class="subtitle">
+            ¡Descubre ChatVis, la solución revolucionaria para implementar análisis 
+            semántico en tus conversaciones en archivos .txt! Con nuestra avanzada 
+            tecnología, obtener información valiosa. Aumenta la precisión y eficiencia 
+            de tus análisis con nuestra plataforma intuitiva y fácil de usar. Potencia 
+            tu toma de decisiones, mejora tus estrategias y maximiza tus resultados.
+          </div>
+          <div class="boton">
+            <RouterLink to="/registro" type="button" class="btn btn-outline-secondary">Registrarse</RouterLink>
 
+          </div>
+        </div>
+        <div class="img">
         </div>
       </div>
-      <div class="img">
-      </div>
-    </div>
-  </main>
+    </main>
+  </DefaultLayout>
 </template>
 
-<style>
+<style scoped>
+
+.btn {
+    font-size: 18px;
+    width: 230px;
+  }
+
+  .btn-dark {
+    color: white;
+  }
+  .btn {
+    font-size: 18px;
+    width: 230px;
+  }
+
+  .btn-dark {
+    color: white;
+  }
+
 @media (min-width: 1500px) {
   .contenedor {
     padding: 45px;
@@ -51,16 +71,6 @@
 
   .boton {
     margin-top: 50px;
-  }
-
-  .btn {
-    font-size: 18px;
-    width: 230px;
-    color: white;
-  }
-
-  .btn-dark {
-    color: white;
   }
 
   .img {
@@ -98,15 +108,7 @@
     margin-top: 50px;
   }
 
-  .btn {
-    font-size: 18px;
-    width: 230px;
-    color: white;
-  }
 
-  .btn-dark {
-    color: white;
-  }
 
   .img {
     background-image: url('/src/assets/img/imgindex.png');

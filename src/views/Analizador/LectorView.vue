@@ -1,6 +1,6 @@
 <script setup>
-import FileReader from '../../components/FileReader.vue'
-import NavbarUser from '../../components/NavbarUser.vue';
+import FileReader from '@/components/FileReader.vue'
+import { UserNavbar } from '@/components/navbar';
 
 
 </script>
@@ -8,7 +8,7 @@ import NavbarUser from '../../components/NavbarUser.vue';
 <template>
 
     <div class="full-screen-container">
-      <NavbarUser />
+      <UserNavbar />
 
         <div class="container">
             <h2>Comencemos analizar tu archivo</h2>

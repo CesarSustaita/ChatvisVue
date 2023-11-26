@@ -50,7 +50,7 @@
 <script setup>
 import { ref, onMounted, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import { store } from '../components/store';
+import { store } from '@/components/store';
 
 const fileInput = ref(null);
 const isDragOver = ref(false);

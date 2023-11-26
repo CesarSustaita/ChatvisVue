@@ -1,6 +1,6 @@
 <script setup>
-import NavbarUser from '../components/NavbarUser.vue';
-import { store } from '../components/store'
+import {UserNavbar} from '@/components/navbar';
+import { store } from '@/components/store'
 
 const cambiarOpcion = (opcion) => {
   store.opcionSeleccionada = opcion;
@@ -10,7 +10,7 @@ const cambiarOpcion = (opcion) => {
 
 <template>
     <div>
-      <NavbarUser />
+      <UserNavbar />
       <div class="botones-pestañas">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
           <input

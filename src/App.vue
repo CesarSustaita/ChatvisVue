@@ -1,12 +1,14 @@
 <script setup>
-import IndexMain from './components/NavbarIndex.vue'
 </script>
 
 <template>
-      <IndexMain/>
+      <RouterView />
 </template>
 
 <style scoped>
+button, .btn {
+      color: rgb(44, 44, 44);
+  border: 0px solid rgb(29, 29, 29);
 
-
+}
 </style>
