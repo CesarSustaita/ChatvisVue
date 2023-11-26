@@ -1,11 +1,11 @@
 <script setup>
-import NavbarUser from '../../components/NavbarUser.vue';
-import ChatvisComponents from '../../components/analizador/ChatvisComponents.vue'
+import {UserNavbar} from '@/components/navbar';
+import ChatvisComponents from '@/components/analizador/ChatvisComponents.vue'
 
 </script>
 
 <template>
-    <NavbarUser/>
+    <UserNavbar/>
     <div class="full-screen-container">
        <ChatvisComponents/>
     </div>

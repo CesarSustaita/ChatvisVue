@@ -1,5 +1,5 @@
 <script setup>
-import FileReader from '../../components/FileReader.vue'
+import FileReader from '@/components/FileReader.vue'
 import { UserNavbar } from '@/components/navbar';
 
 

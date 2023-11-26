@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
+import {DefaultLayout} from '@/layouts'
 
 const router = useRouter()
 
@@ -10,18 +11,26 @@ const currentStep = ref(1)
 const nextStep = () => {
   if (currentStep.value < REGISTER_STEPS) {
     currentStep.value++
-    router.push(`/registro/${currentStep.value}`)
   }
 }
 
 const prevStep = () => {
-  currentStep.value--
+  if (currentStep.value >= 1) {
+    currentStep.value--
+  }
+}
+
+// Detect changes from currentStep, as it is a reactive property.
+// https://vuejs.org/guide/essentials/watchers.html
+// If currentStep is greater than 1, redirect to that register step.
+// If currentStep is 0, redirect to home.
+watchEffect(() => {
   if (currentStep.value >= 1) {
     router.push(`/registro/${currentStep.value}`)
     return
   }
   router.push('/')
-}
+})
 
 const register = () => {
   alert('Registro exitoso')
@@ -31,6 +40,7 @@ const register = () => {
 </script>
 
 <template>
+  <DefaultLayout>
     <div class="container">
     <div class="encabezados">
       <div class="back">
@@ -82,6 +92,7 @@ const register = () => {
       ¿Ya tienes una cuenta? <RouterLink to="/inicio" > Inicia Sesión</RouterLink>
     </div>
   </div>
+  </DefaultLayout>
 </template>
 
 <style scoped>

@@ -1,40 +1,42 @@
-<script>
-
+<script setup>
+import {DefaultLayout} from '@/layouts'
 </script>
 
 <template>
-<div class="container">
-  <div class="encabezados">
-    <div class="back">
-      <h3><RouterLink to="/" > <i class="fa-solid fa-chevron-left" style="color: #000000;"></i></RouterLink>  Regresar</h3>
-    </div>
-    <div class="title">
-    <h3>¿Cuál es tu dirección de email? </h3>
-  </div>
-  <div class="next">
-      <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
-    </div>
-  </div>
-  
-  <div class="inicio">
-      <form>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Correo</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <DefaultLayout>
+    <div class="container">
+      <div class="encabezados">
+        <div class="back">
+          <h3><RouterLink to="/" > <i class="fa-solid fa-chevron-left" style="color: #000000;"></i></RouterLink>  Regresar</h3>
+        </div>
+        <div class="title">
+        <h3>¿Cuál es tu dirección de email? </h3>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+      <div class="next">
+          <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
+        </div>
       </div>
-      <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
+      
+      <div class="inicio">
+          <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
 
-      <div class="cuenta">
-        ¿Aun no tienes cuenta? <RouterLink to="/registro" > Registrate</RouterLink>
-      </div>
+          <div class="cuenta">
+            ¿Aun no tienes cuenta? <RouterLink to="/registro" > Registrate</RouterLink>
+          </div>
 
-      </form>
-  </div>
-</div>
+          </form>
+      </div>
+    </div>
+  </DefaultLayout>
 </template>
 
 <style>

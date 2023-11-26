@@ -51,7 +51,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/InicioSesionView.vue')
+      component: () => import('@/views/InicioSesionView.vue')
     },
     {
       path: '/lector',
@@ -60,7 +60,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Analizador/LectorView.vue')
+      component: () => import('@/views/Analizador/LectorView.vue')
     },
     {
       path: '/analizador',
@@ -69,7 +69,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Analizador/AnalizadorView.vue')
+      component: () => import('@/views/Analizador/AnalizadorView.vue')
     },
     {
       path: '/analizadorAdmin',
@@ -78,7 +78,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Analizador/AnalizadorAdminView.vue')
+      component: () => import('@/views/Analizador/AnalizadorAdminView.vue')
     }
   ]
 })
