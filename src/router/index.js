@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue';
-
+import HomeView from '@/views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,39 +8,42 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      
     },
     {
       path: '/registro',
-      name: 'registro',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/RegistroView1.vue')
-    },
-    {
-      path: '/registro2',
-      name: 'registro2',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/RegistroView2.vue')
-    },
-    {
-      path: '/registro3',
-      name: 'registro3',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/RegistroView3.vue')
-    },
-    {
-      path: '/registro4',
-      name: 'registro4',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/RegistroView4.vue')
+      component: () => import('@/views/Registro/Registro.vue'),
+      children: [
+        {
+          name: 'registro',
+          // /registro
+          path: '',
+          component: () => import('@/views/Registro/Registro1.vue')
+        },
+        {
+          name: 'registro 1',
+          // /registro/1
+          path: '1',
+          component: () => import('@/views/Registro/Registro1.vue')
+        },
+        {
+          name: 'registro 2',
+          path: '2',
+          component: () => import('@/views/Registro/Registro2.vue')
+        },
+        {
+          name: 'registro 3',
+          path: '3',
+          component: () => import('@/views/Registro/Registro3.vue')
+        },
+        {
+          name: 'registro 4',
+          path: '4',
+          component: () => import('@/views/Registro/Registro4.vue')
+        }
+      ]
     },
     {
       path: '/inicio',
