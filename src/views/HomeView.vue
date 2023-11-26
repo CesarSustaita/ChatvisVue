@@ -2,7 +2,6 @@
 </script>
 
 <template>
-  
   <main>
     <div class="contenedor">
       <div class="texts">
@@ -27,7 +26,25 @@
   </main>
 </template>
 
-<style>
+<style scoped>
+
+.btn {
+    font-size: 18px;
+    width: 230px;
+  }
+
+  .btn-dark {
+    color: white;
+  }
+  .btn {
+    font-size: 18px;
+    width: 230px;
+  }
+
+  .btn-dark {
+    color: white;
+  }
+
 @media (min-width: 1500px) {
   .contenedor {
     padding: 45px;
@@ -51,16 +68,6 @@
 
   .boton {
     margin-top: 50px;
-  }
-
-  .btn {
-    font-size: 18px;
-    width: 230px;
-    color: white;
-  }
-
-  .btn-dark {
-    color: white;
   }
 
   .img {
@@ -98,15 +105,7 @@
     margin-top: 50px;
   }
 
-  .btn {
-    font-size: 18px;
-    width: 230px;
-    color: white;
-  }
 
-  .btn-dark {
-    color: white;
-  }
 
   .img {
     background-image: url('/src/assets/img/imgindex.png');
