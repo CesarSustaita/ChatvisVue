@@ -1,11 +1,15 @@
-
-
+<!-- se gregara un script con los elementos reactivos-->
+<script setup>
+import { store } from '../../components/register'
+import { ref } from 'vue'
+const user = ref(store)
+</script>
 
 <template>
   <form>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Estado</label>
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select" aria-label="Default select example" v-model="user.estado">
         <option selected>Selecciona el estado</option>
         <option value="1">Aguascalientes</option>
         <option value="2">Baja California</option>
@@ -43,9 +47,15 @@
     </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Ciudad</label>
-      <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+        v-model="user.ciudad"
+      />
     </div>
-    
+
     <!-- <RouterLink to="/registro4" type="button" class="btn btn-outline-dark">Continuar</RouterLink> -->
   </form>
 </template>

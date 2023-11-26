@@ -1,5 +1,47 @@
 <script setup>
-import {DefaultLayout} from '@/layouts'
+import { DefaultLayout } from '@/layouts'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { store } from '../components/register'
+import { ref } from 'vue'
+const login = ref(store)
+const user = ref({
+  email: [],
+  password: []
+})
+const router = useRouter()
+const loginUser = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/user/login', {
+      email: user.value.email,
+      password: user.value.password
+    })
+    console.log(response.data)
+    asing(response, login)
+    console.log(login)
+    if (login.value.admin == 0) {
+      router.push('/lector')
+    } else {
+      router.push('/analizadorAdmin')
+    }
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error)
+  }
+}
+
+function asing(response, login) {
+  login.value.nombre = response.data.nombre
+  login.value.apellido_paterno = response.data.apellido_paterno
+  login.value.apellido_materno = response.data.apellido_materno
+  login.value.estado = response.data.estado
+  login.value.ciudad = response.data.ciudad
+  login.value.universidad = response.data.universidad
+  login.value.password = response.data.password
+  login.value.email = response.data.email
+  login.value.admin = response.data.admin
+  login.value.num_uso = response.data.num_uso
+  login.value._id = response.data._id
+}
 </script>
 
 <template>
@@ -7,33 +49,48 @@ import {DefaultLayout} from '@/layouts'
     <div class="container">
       <div class="encabezados">
         <div class="back">
-          <h3><RouterLink to="/" > <i class="fa-solid fa-chevron-left" style="color: #000000;"></i></RouterLink>  Regresar</h3>
+          <h3>
+            <RouterLink to="/">
+              <i class="fa-solid fa-chevron-left" style="color: #000000"></i
+            ></RouterLink>
+            Regresar
+          </h3>
         </div>
         <div class="title">
-        <h3>¿Cuál es tu dirección de email? </h3>
-      </div>
-      <div class="next">
-          <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
+          <h3>¿Cuál es tu dirección de email?</h3>
+        </div>
+        <div class="next">
+          <h3>Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff"></i></h3>
         </div>
       </div>
-      
+
       <div class="inicio">
-          <form>
+        <form @submit.prevent="loginUser">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              v-model="user.email"
+            />
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input
+              type="password"
+              class="form-control"
+              v-model="user.password"
+              id="exampleInputPassword1"
+            />
           </div>
           <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
 
           <div class="cuenta">
-            ¿Aun no tienes cuenta? <RouterLink to="/registro" > Registrate</RouterLink>
+            ¿Aun no tienes cuenta? <RouterLink to="/registro"> Registrate</RouterLink>
           </div>
-
-          </form>
+        </form>
       </div>
     </div>
   </DefaultLayout>
@@ -41,7 +98,6 @@ import {DefaultLayout} from '@/layouts'
 
 <style>
 @media (min-width: 1024px) {
-
   .container {
     display: flex;
     align-items: center;
@@ -84,4 +140,3 @@ import {DefaultLayout} from '@/layouts'
   }
 }
 </style>
-  
