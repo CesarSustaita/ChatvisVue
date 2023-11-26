@@ -1,38 +1,45 @@
-<script>
+<script setup>
 import axios from 'axios'
-export default {
-  // name: 'user',
-  data() {
-    return {
-      email: '',
-      password: '',
-      users: []
+import { useRouter } from 'vue-router'
+import { storeU } from '../components/user'
+import { ref } from 'vue'
+const login = ref(storeU)
+const user = ref({
+  email: [],
+  password: []
+})
+const router = useRouter()
+const loginUser = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/user/login', {
+      email: user.value.email,
+      password: user.value.password
+    })
+    console.log(response.data)
+    asing(response, login)
+    console.log(login)
+    if (login.value.admin == 0) {
+      router.push({ name: 'lector' }) //AQUI DEBE DE VALIDAR CUANDO ES UNO Y CUANDO ES EL OTRO ADMIN O USUARIO
+    } else {
+      router.push({ name: 'analizadorA' }) //AQUI DEBE DE VALIDAR CUANDO ES UNO Y CUANDO ES EL OTRO ADMIN O USUARIO
     }
-  },
-  mounted() {
-    this.login()
-  },
-  methods: {
-    login() {
-      axios
-        .post('http://localhost:8000/api/user/login', {
-          email: this.email,
-          password: this.password
-        })
-        .then((res) => {
-          console.log(res)
-          this.users = res.data
-          console.log(this.users)
-          // Maneja la respuesta del backend, por ejemplo, guarda el token
-          // const token = res.data.token
-          // Puedes hacer algo con el token, como almacenarlo en localStorage
-          // localStorage.setItem('token', token)
-        })
-        .catch((error) => {
-          console.error('Error en el inicio de sesión:', error)
-        })
-    }
+    // router.push({ name: 'lector' }) //AQUI DEBE DE VALIDAR CUANDO ES UNO Y CUANDO ES EL OTRO ADMIN O USUARIO
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error)
   }
+}
+
+function asing(response, login) {
+  login.value.nombre = response.data.nombre
+  login.value.apellido_paterno = response.data.apellido_paterno
+  login.value.apellido_materno = response.data.apellido_materno
+  login.value.estado = response.data.estado
+  login.value.ciudad = response.data.ciudad
+  login.value.universidad = response.data.universidad
+  login.value.password = response.data.password
+  login.value.email = response.data.email
+  login.value.admin = response.data.admin
+  login.value.num_uso = response.num_uso
 }
 </script>
 
@@ -56,7 +63,7 @@ export default {
     </div>
 
     <div class="inicio">
-      <form @submit.prevent="login">
+      <form @submit.prevent="loginUser">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Correo</label>
           <input
@@ -64,7 +71,7 @@ export default {
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            v-model="email"
+            v-model="user.email"
             required
           />
         </div>
@@ -73,7 +80,7 @@ export default {
           <input
             type="password"
             class="form-control"
-            v-model="password"
+            v-model="user.password"
             id="exampleInputPassword1"
             required
           />

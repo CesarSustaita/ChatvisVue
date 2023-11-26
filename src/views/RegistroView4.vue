@@ -1,22 +1,36 @@
 <script setup>
 import { store } from '../components/register'
+import { useRouter } from 'vue-router'
+import { storeU } from '../components/user'
 import { ref } from 'vue'
-const user = ref(store)
-console.log(store)
 import axios from 'axios'
-const registrarUsers = () => {
-  axios
-    .post('http://localhost:8000/api/user/login', store)
-    .then((res) => {
-      console.log(res)
-      // Maneja la respuesta del backend, por ejemplo, guarda el token
-      // const token = res.data.token
-      // Puedes hacer algo con el token, como almacenarlo en localStorage
-      // localStorage.setItem('token', token)
-    })
-    .catch((error) => {
-      console.error('Error en el inicio de sesión:', error)
-    })
+
+const user = ref(store)
+const users = ref(storeU)
+console.log(store)
+const router = useRouter()
+
+const registrarUsers = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/user', user.value)
+    console.log(response.data)
+    asing(response, users)
+    router.push({ name: 'lector' })
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error)
+  }
+}
+function asing(response, users) {
+  users.value.nombre = response.data.nombre
+  users.value.apellido_paterno = response.data.apellido_paterno
+  users.value.apellido_materno = response.data.apellido_materno
+  users.value.estado = response.data.estado
+  users.value.ciudad = response.data.ciudad
+  users.value.universidad = response.data.universidad
+  users.value.password = response.data.password
+  users.value.email = response.data.email
+  users.value.admin = response.data.admin
+  users.value.num_uso = response.num_uso
 }
 </script>
 
@@ -58,7 +72,7 @@ const registrarUsers = () => {
             v-model="user.universidad"
           />
         </div>
-        <button type="button" class="btn btn-outline-dark">Registrar</button>
+        <button type="submit" class="btn btn-outline-dark">Registrar</button>
       </form>
     </div>
   </div>

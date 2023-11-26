@@ -1,29 +1,29 @@
-<script>
-// setup
+<script setup>
 import axios from 'axios'
-export default {
-  // name: 'user',
-  data() {
-    return {
-      users: []
-    }
-  },
-  mounted() {
-    this.getUsers()
-  },
-  methods: {
-    getUsers() {
-      axios
-        .get('http://localhost:8000/api/user')
-        .then((res) => {
-          console.log(res)
-          this.users = res.data
-          console.log(this.users)
-        })
-        .catch((error) => {
-          console.error('Error al obtener usuarios:', error)
-        })
-    }
+import { ref, onMounted } from 'vue'
+
+const users = ref([]) // Importa 'ref' para crear una referencia reactiva
+
+const getUsers = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/user')
+    users.value = response.data // Utiliza 'value' para actualizar la referencia reactiva
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error)
+  }
+}
+
+onMounted(() => {
+  getUsers() // Llama a la función getUsers cuando el componente se monta
+})
+
+const deleteData = async (user) => {
+  try {
+    const response = await axios.delete(`http://localhost:8000/api/user/${user._id}`)
+    console.log('Datos eliminados con éxito:', response.data)
+    // Realiza acciones adicionales después de la eliminación si es necesario
+  } catch (error) {
+    console.error('Error al eliminar datos:', error)
   }
 }
 </script>
@@ -55,27 +55,7 @@ export default {
             <td>Agosto 12, 2022 - 9:42 am</td>
             <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Daniel Cardona</td>
-            <td>UNAM</td>
-            <td>CDMX</td>
-            <td>México</td>
-            <td>Sexto</td>
-            <td>Agosto 15, 2022 - 9:40 am</td>
-            <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>César Sustaita</td>
-            <td>USALP</td>
-            <td>San Luis Potosí</td>
-            <td>México</td>
-            <td>Séptimo</td>
-            <td>Agosto 01, 2022 - 9:38 am</td>
-            <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
-          </tr>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in users" :key="user._id">
             <th scope="row">{{ user._id }}</th>
             <td>{{ user.nombre }} {{ user.apellido_paterno }} {{ user.apellido_materno }}</td>
             <td>{{ user.universidad }}</td>
@@ -83,7 +63,14 @@ export default {
             <td>{{ user.ciudad }}/td></td>
             <td>{{ user.num_uso }}</td>
             <td>semestre?</td>
-            <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
+            <td>
+              <form @submit.prevent="deleteData"></form>
+              <input type="hidden" value="{{ user._id }}" />
+              <button type="submit">
+                <!-- <i class="fa-solid fa-trash" style="color: #292929"></i> -->
+                borrar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
