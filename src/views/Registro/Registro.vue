@@ -1,14 +1,17 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import {DefaultLayout} from '@/layouts'
-
+import { DefaultLayout } from '@/layouts'
+import { register } from '@/components/register'
+import axios from 'axios'
+const user = ref(register)
 const router = useRouter()
 
 const REGISTER_STEPS = 4
 const currentStep = ref(1)
 
 const nextStep = () => {
+  // console.log(user)
   if (currentStep.value < REGISTER_STEPS) {
     currentStep.value++
   }
@@ -32,66 +35,72 @@ watchEffect(() => {
   router.push('/')
 })
 
-const register = () => {
+const registrar = () => {
+  // console.log(user.value)
+  //manda a llamar la funcion para guardar el regitro
   alert('Registro exitoso')
+  registrarUsers()
   // Si todo sale bien.
-  router.push('/inicio')
+  router.push('/lector')
+}
+
+const registrarUsers = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/user', user.value)
+    user.value.admin = response.data.admin
+    user.value.num_uso = response.data.num_uso
+    user.value._id = response.data._id
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error)
+  }
 }
 </script>
 
 <template>
   <DefaultLayout>
     <div class="container">
-    <div class="encabezados">
-      <div class="back">
-        <h3 @click="prevStep" class="return-btn">
-          <i class="fa-solid fa-chevron-left" style="color: #000000;"></i>
-          {{ 
-            currentStep > 1 
-              ? 'Regresar' 
-              : 'Inicio' 
-          }}
-        </h3>
+      <div class="encabezados">
+        <div class="back">
+          <h3 @click="prevStep" class="return-btn">
+            <i class="fa-solid fa-chevron-left" style="color: #000000"></i>
+            {{ currentStep > 1 ? 'Regresar' : 'Inicio' }}
+          </h3>
+        </div>
+        <div class="title">
+          <h3>Registro de cuenta</h3>
+        </div>
+        <div class="next">
+          <h3>Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff"></i></h3>
+        </div>
       </div>
-      <div class="title">
-        <h3>Registro de cuenta</h3>
-      </div>
-      <div class="next">
-        <h3> Siguiente <i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i> </h3>
-      </div>
-    </div>
 
-    <div class="inicio">
-      <div class="avance">
-        <div 
-          v-for="n in REGISTER_STEPS"
-          :key="n"
-          :class="[
-            'recuadro',
-            currentStep >= n ? 'recuadro-coloreado' : 'recuadro-futuro',
-          ]"
-        />
-      </div>
-      
-      <RouterView />
+      <div class="inicio">
+        <div class="avance">
+          <div
+            v-for="n in REGISTER_STEPS"
+            :key="n"
+            :class="['recuadro', currentStep >= n ? 'recuadro-coloreado' : 'recuadro-futuro']"
+          />
+        </div>
 
-      <button 
-        type="button" 
-        class="btn btn-outline-dark"
-        @click="nextStep"
-        v-if="currentStep < REGISTER_STEPS"
-      >Continuar</button>
-      <button 
-        type="submit" 
-        class="btn btn-outline-dark"
-        @click="register"
-        v-else
-      >Registrar</button>
+        <RouterView />
+
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          @click="nextStep"
+          v-if="currentStep < REGISTER_STEPS"
+        >
+          Continuar
+        </button>
+        <button type="submit" class="btn btn-outline-dark" @click="registrar" v-else>
+          Registrar
+        </button>
+      </div>
+      <div class="cuenta">
+        ¿Ya tienes una cuenta? <RouterLink to="/inicio"> Inicia Sesión</RouterLink>
+      </div>
     </div>
-    <div class="cuenta">
-      ¿Ya tienes una cuenta? <RouterLink to="/inicio" > Inicia Sesión</RouterLink>
-    </div>
-  </div>
   </DefaultLayout>
 </template>
 
@@ -101,7 +110,6 @@ const register = () => {
 }
 
 @media (min-width: 1024px) {
-
   .container {
     display: flex;
     align-items: center;
@@ -116,7 +124,7 @@ const register = () => {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    border: 0px solid black; 
+    border: 0px solid black;
   }
 
   .title {
@@ -141,7 +149,7 @@ const register = () => {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: .25rem;
+    gap: 0.25rem;
     width: 100%;
     height: 10px;
     margin-top: 10px;

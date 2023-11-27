@@ -1,29 +1,32 @@
-
+<!-- se gregara un script con los elementos reactivos-->
 <script>
+import { register } from '@/components/register'
+import { ref } from 'vue'
+const user = ref(register)
 export default {
   data() {
     return {
-      email: '', // Para almacenar el valor del correo electrónico
+      user, // Para almacenar el valor del correo electrónico
       errors: [] // Para rastrear los errores de validación
-    };
+    }
   },
   methods: {
     validateEmail() {
       // Expresión regular para validar el correo electrónico
-      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 
       // Reiniciar la lista de errores
-      this.errors = [];
+      this.errors = []
 
       // Validar si el campo de correo electrónico está vacío o no coincide con la expresión regular
-      if (!this.email) {
-        this.errors.push('El correo electrónico es obligatorio.');
-      } else if (!emailRegex.test(this.email)) {
-        this.errors.push('El correo electrónico ingresado no es válido.');
+      if (!user.value.email) {
+        this.errors.push('El correo electrónico es obligatorio.')
+      } else if (!emailRegex.test(user.value.email)) {
+        this.errors.push('El correo electrónico ingresado no es válido.')
       }
     }
   }
-};
+}
 </script>
 
 <template>
@@ -35,9 +38,9 @@ export default {
         class="form-control"
         id="exampleInputEmail1"
         aria-describedby="emailHelp"
-        v-model="email" 
+        v-model="user.email"
         @input="validateEmail"
-      >
+      />
       <!-- Mostrar errores debajo del campo de entrada -->
       <div v-for="(error, index) in errors" :key="index" class="text-danger">{{ error }}</div>
     </div>
