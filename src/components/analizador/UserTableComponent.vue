@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-
+const i = 0
 const users = ref([]) // Importa 'ref' para crear una referencia reactiva
 
 const getUsers = async () => {
@@ -38,14 +38,14 @@ onMounted(() => {
             <th scope="col">Nombre</th>
             <th scope="col">Universidad</th>
             <th scope="col">Estado</th>
-            <th scope="col">País</th>
-            <th scope="col">Semestre</th>
-            <th scope="col">Fecha de registro</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Numero de usos</th>
+            <!-- <th scope="col">Fecha de registro</th> -->
             <th scope="col">Edición</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <th scope="row">1</th>
             <td>Jaime Garcia</td>
             <td>UAA</td>
@@ -54,15 +54,15 @@ onMounted(() => {
             <td>Séptimo</td>
             <td>Agosto 12, 2022 - 9:42 am</td>
             <td><i class="fa-solid fa-trash" style="color: #292929"></i></td>
-          </tr>
+          </tr> -->
           <tr v-for="user in users" :key="user._id">
-            <th scope="row">{{ user._id }}</th>
+            <th scope="row">{{ (i = i + 1) }}</th>
             <td>{{ user.nombre }} {{ user.apellido_paterno }} {{ user.apellido_materno }}</td>
             <td>{{ user.universidad }}</td>
             <td>{{ user.estado }}</td>
-            <td>{{ user.ciudad }}/td></td>
+            <td>{{ user.ciudad }}</td>
             <td>{{ user.num_uso }}</td>
-            <td>semestre?</td>
+            <!-- <td>semestre?</td> -->
             <td>
               <!-- <form @submit.prevent="deleteData"></form> -->
               <!-- <input type="hidden" value="{{ user._id }}" /> -->

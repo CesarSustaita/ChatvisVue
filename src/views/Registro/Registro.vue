@@ -2,9 +2,9 @@
 import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { DefaultLayout } from '@/layouts'
-import { store } from '../../components/register'
+import { register } from '@/components/register'
 import axios from 'axios'
-const user = ref(store)
+const user = ref(register)
 const router = useRouter()
 
 const REGISTER_STEPS = 4
@@ -35,7 +35,7 @@ watchEffect(() => {
   router.push('/')
 })
 
-const register = () => {
+const registrar = () => {
   // console.log(user.value)
   //manda a llamar la funcion para guardar el regitro
   alert('Registro exitoso')
@@ -93,7 +93,7 @@ const registrarUsers = async () => {
         >
           Continuar
         </button>
-        <button type="submit" class="btn btn-outline-dark" @click="register" v-else>
+        <button type="submit" class="btn btn-outline-dark" @click="registrar" v-else>
           Registrar
         </button>
       </div>

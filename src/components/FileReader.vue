@@ -52,10 +52,10 @@
 import { ref, onMounted, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { store } from '@/components/store'
-import { storeU } from '@/components/register'
+import { register } from '@/components/register'
 
 const fileInput = ref(null)
-const user = ref(storeU)
+const user = ref(register)
 const isDragOver = ref(false)
 const router = useRouter()
 

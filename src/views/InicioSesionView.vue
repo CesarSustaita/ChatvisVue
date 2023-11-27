@@ -2,9 +2,9 @@
 import { DefaultLayout } from '@/layouts'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import { store } from '../components/register'
+import { register } from '@/components/register'
 import { ref } from 'vue'
-const login = ref(store)
+const login = ref(register)
 const user = ref({
   email: [],
   password: []

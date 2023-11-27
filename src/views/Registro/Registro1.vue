@@ -1,8 +1,8 @@
 <!-- se gregara un script con los elementos reactivos-->
 <script>
-import { store } from '../../components/register'
+import { register } from '@/components/register'
 import { ref } from 'vue'
-const user = ref(store)
+const user = ref(register)
 export default {
   data() {
     return {

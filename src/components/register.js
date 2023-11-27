@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 
-export const store = reactive({
+export const register = reactive({
   // _id: [], //guarda el id
   nombre: [], // pestaña 2
   apellido_paterno: [], // pestaña 2
